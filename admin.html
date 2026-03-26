@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel</title>
+
+<style>
+body{
+margin:0;
+font-family:sans-serif;
+background:#0f172a;
+color:white;
+text-align:center;
+}
+
+input,button{
+padding:10px;
+margin:8px;
+width:80%;
+border:none;
+border-radius:8px;
+}
+
+button{
+background:#ff0077;
+color:white;
+cursor:pointer;
+}
+
+.card img{
+width:120px;
+border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🔐 Admin Panel</h2>
+
+<div id="login">
+<input type="password" id="pass" placeholder="Password">
+<button onclick="login()">Login</button>
+</div>
+
+<div id="panel" style="display:none">
+
+<h3>Add Wallpaper</h3>
+<input id="url" placeholder="Image URL">
+<button onclick="add()">Add</button>
+
+<h3>All Wallpapers</h3>
+<div id="list"></div>
+
+<h3>Change Password</h3>
+<input id="newpass" placeholder="New Password">
+<button onclick="change()">Change</button>
+
+</div>
+
+<script>
+let images = [
+  "https://i.ibb.co/1.jpg",
+  "https://i.ibb.co/2.jpg",
+  "https://i.ibb.co/3.jpg"
+];
+
+let pass = "admin123";
+
+function login(){
+let p=document.getElementById("pass").value;
+
+if(p===pass){
+document.getElementById("login").style.display="none";
+document.getElementById("panel").style.display="block";
+load();
+}else{
+alert("Wrong Password");
+}
+}
+
+function add(){
+let url=document.getElementById("url").value;
+images.push(url);
+load();
+}
+
+function load(){
+let list=document.getElementById("list");
+list.innerHTML="";
+
+images.forEach((img,i)=>{
+list.innerHTML+=`
+<div>
+<img src="${img}">
+<br>
+<button onclick="del(${i})">Delete</button>
+</div>
+`;
+});
+}
+
+function del(i){
+images.splice(i,1);
+load();
+}
+
+function change(){
+pass=document.getElementById("newpass").value;
+alert("Password changed");
+}
+</script>
+
+</body>
+</html>
